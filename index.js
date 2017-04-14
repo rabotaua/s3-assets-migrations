@@ -64,11 +64,11 @@ function splitRows(text) {
 	const arrayOfFiles = text.split('\n')
 	readStylesAndScripts()
 
-	for(let i = 0; i < 500; i++) {
+	for(let i = 0; i < arrayOfFiles.length; i++) {
 		const format = getOnlyFilename(arrayOfFiles[i])
 		findInMarkup(format)
-		findInStylesAndScripts()
-		// console.log('Current index: ', i, '-------------', format)
+		findInStylesAndScripts(format)
+		console.log('Current index: ', i, '-------------', format)
 	}
 
 	fs.writeJSON('./result/result.json', result, (err) => {
@@ -87,15 +87,15 @@ function findInMarkup(filename) {
 	})
 }
 
-function findInStylesAndScripts() {
+function findInStylesAndScripts(formatFilename) {
 	cssJsList.map(item => {
 		if( !item ) return
 
 		const meta =  { file: item.filename }
-		const filename = item.filename.match(/[^\\/]+$/)[0]
+		// const filename = item.filename.match(/[^\\/]+$/)[0]
 		// const destination = getOnlyFilename(path.resolve(item.filename))
 
-		findMatch(item.body, filename, meta)
+		findMatch(item.body, formatFilename, meta)
 	})
 }
 
@@ -126,7 +126,6 @@ function findMatch(string, filename, meta) {
 	}
 
 	if( sensitive || notSensitive) {
-
 		writeToJson( sensitive ? true : false, filename, meta)
 
 		// const source = path.join(__dirname, imgPrefix, destination)
