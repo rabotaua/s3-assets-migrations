@@ -1,6 +1,6 @@
 # s3-assets-migrations
 
-### JSON with results: http://fnnzzz.xyz/_files/result.json
+### JSON with results: ` ./result/result.json `
 
 ## Manual
 1. ``` cd ./img2 ```
